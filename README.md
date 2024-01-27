@@ -12,14 +12,23 @@ Future updates of this repositoty will include the code for Model E9, models pre
 The elements saved in the data.rds object are the following:
 
 **MET:** simulated data from simulation model B2 (s = 45)
-G            : genotypes $\newline$
+
+G            : genotypes 
+
 L            : locations
+
 Y            : years (factor)
+
 Y_num        : years (numeric) 
+
 trial        : trials (PYT and URT)
+
 mappingL     : covariate mapping ($z_{jk}$)
+
 first_Y_trial: first year of trial ($r_i$)
+
 parent       : binary variable stating if the $i^{th}$ genotype was used as a parent in crossing blocks
+
 check        : binary variable stating if the $i^{th}$ genotype was a check variety in MET
 P1           : parent 1 of the $i^{th}$ genotype (assuming biparental crosses)
 P2           : parent 2 of the $i^{th}$ genotype
