@@ -1,11 +1,11 @@
 # MET data
-dat <- readRDS('./dat/dat.rds')$MET
+dat <- readRDS('./dat.rds')$MET
 
 # crossing nursery
-parents <- readRDS('./dat/dat.rds')$parents
+parents <- readRDS('./dat.rds')$parents
 
 # Additive relationship matrix computed with rrBLUP::A.mat()
-G <- readRDS('./dat/dat.rds')$G_matrix 
+G <- readRDS('./dat.rds')$G_matrix 
 Ginv <- solve(G)
 
 # Loading needed packages
