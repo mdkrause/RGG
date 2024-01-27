@@ -5,7 +5,7 @@ Krause, M.D., Piepho, HP., Dias, K.O.G. et al. Theor Appl Genet 136, 252 (2023).
 This repositoty contains the following files:
 
 1. dat.rds: a list with three elements: MET, parents, and G_matrix (see below).
-2. RGG_Table6.R: codes of the models presented in Table 6, except for Model E9.
+2. RGG_Table6.R: codes of the models presented in Table 6, except for Model E9. Codes for the linearity metrics were also made available.
 
 Future updates of this repositoty will include the code for Model E9, models presented in Table 7, and the simulator.
 
