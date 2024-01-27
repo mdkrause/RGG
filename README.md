@@ -27,3 +27,12 @@ The elements saved in the data.rds object are the following:
 13. SE           : standard error of estimated eBLUE <br />
 14. weight       : weights computed as $\frac{1}{SE^2}$ <br />
 15. sim_gv       : true simulated genetic value <br />
+
+**parents:** data from simulated crossing blocks <br />
+1. G                    : genotypes used as parents <br />
+2. number_crosses       : the number of hybridizations the $i^{th}$ genotype contributed to 
+3. year_crossing_nursery: calendar year
+4. sim_gv               : true simulated genetic value <br />
+
+**G_matrix:** additive genomic relationship matrix computed with rrBLUP::A.mat() from simulated SNP dosages
+
