@@ -12,7 +12,7 @@ Future updates of this repositoty will include the code for Model E9, models pre
 The elements saved in the data.rds object are the following:
 
 **MET:** simulated data from simulation model B2 (s = 45)
-G            : genotypes
+G            : genotypes $\newline$
 L            : locations
 Y            : years (factor)
 Y_num        : years (numeric) 
