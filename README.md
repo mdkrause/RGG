@@ -2,14 +2,14 @@
 
 Krause, M.D., Piepho, HP., Dias, K.O.G. et al. Theor Appl Genet 136, 252 (2023). https://doi.org/10.1007/s00122-023-04470-3
 
-This repositoty contains the following files:
+This repository contains the following files:
 
 1. dat.rds: a list with three elements: MET, parents, and G_matrix (see below).
 2. RGG_Table6.R: codes of the models presented in Table 6, except for Model E9. Codes for the linearity metrics were also made available.
 
-Future updates of this repositoty will include the code for Model E9, models presented in Table 7, and the simulator.
+Future updates of this repository will include the code for Model E9, models presented in Table 7, and the simulator.
 
-The elements saved in the data.rds object are the following:
+The data.rds object contains the following datasets:
 
 **MET:** simulated data from simulation model B2 (s = 45) <br />
 1. G            : genotypes <br />
