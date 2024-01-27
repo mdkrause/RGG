@@ -11,28 +11,19 @@ Future updates of this repositoty will include the code for Model E9, models pre
 
 The elements saved in the data.rds object are the following:
 
-**MET:** simulated data from simulation model B2 (s = 45)
-
-G            : genotypes 
-
-L            : locations
-
-Y            : years (factor)
-
-Y_num        : years (numeric) 
-
-trial        : trials (PYT and URT)
-
-mappingL     : covariate mapping ($z_{jk}$)
-
-first_Y_trial: first year of trial ($r_i$)
-
-parent       : binary variable stating if the $i^{th}$ genotype was used as a parent in crossing blocks
-
-check        : binary variable stating if the $i^{th}$ genotype was a check variety in MET
-P1           : parent 1 of the $i^{th}$ genotype (assuming biparental crosses)
-P2           : parent 2 of the $i^{th}$ genotype
-eBLUE        : Empirical Best Linear Unbiased Estimates of genotype means from single-trial analysis (Model C3)
-SE           : standard error of estimated eBLUE
-weight       : weights computed as $\frac{1}{SE^2}$
-sim_gv       : true simulated genetic value
+**MET:** simulated data from simulation model B2 (s = 45) <br />
+1. G            : genotypes <br />
+2. L            : locations <br />
+3. Y            : years (factor) <br />
+4. Y_num        : years (numeric) <br />
+5. trial        : trials (PYT and URT) <br />
+6. mappingL     : covariate mapping ($z_{jk}$) <br />
+7. first_Y_trial: first year of trial ($r_i$) <br />
+8. parent       : binary variable stating if the $i^{th}$ genotype was used as a parent in crossing blocks <br />
+9. check        : binary variable stating if the $i^{th}$ genotype was a check variety in MET <br />
+10. P1           : parent 1 of the $i^{th}$ genotype (assuming biparental crosses) <br />
+11. P2           : parent 2 of the $i^{th}$ genotype <br />
+12. eBLUE        : Empirical Best Linear Unbiased Estimates of genotype means from single-trial analysis (Model C3) <br />
+13. SE           : standard error of estimated eBLUE <br />
+14. weight       : weights computed as $\frac{1}{SE^2}$ <br />
+15. sim_gv       : true simulated genetic value <br />
