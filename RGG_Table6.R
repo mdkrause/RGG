@@ -83,7 +83,7 @@ E4V <- E0V # Same as E0V, differs in the estimation of RGG
 
 E5 <- E1 # Same as E1, differs in the estimation of RGG
 
-E5V <- E1V # Same as E1, differs in the estimation of RGG
+E5V <- E1V # Same as E1V, differs in the estimation of RGG
 
 E6 <- asreml(fixed = eBLUE ~ check + Y_num + mappingL, 
              random = ~ G + L + Y + G:L + check:L + check:Y,
@@ -289,6 +289,6 @@ linearity <- data.frame(model = c('E2','E2V','E3','E3V','E6','E6V','E8'),
 
 linearity$p_value <- 2*(1-pnorm(linearity$z_Score))
 linearity$log_p_value <- -log10(linearity$p_value) # as reported in Fig 7, page 15
-number_test <- 1 # Bonferroni correction (S = 225 in the publication)
-linearity$significant <- ifelse(linearity$p_value<0.05/number_test,TRUE,FALSE)
+S <- 1 # Bonferroni correction (S = 225 in the publication)
+linearity$significant <- ifelse(linearity$p_value<0.05/S,TRUE,FALSE)
 linearity
