@@ -5,15 +5,7 @@ dat <- readRDS('dat_seed_45.rds')$MET
 parents <- readRDS('dat_seed_45.rds')$parents
 
 # Additive relationship matrix computed with rrBLUP::A.mat()
-G <- readRDS('dat_seed_45.rds')$G_matrix
-G <- G[unique(c(levels(dat$P1),levels(dat$P2)))[-1],
-       unique(c(levels(dat$P1),levels(dat$P2)))[-1]] #only parents/breeding lines
-G <- cbind(G,rep(0,nrow(G))) # adding checks' parent, named "0"
-                             # Not really needed, to Asreml-R not complain. Plus, this is a nice
-                             # trick for data analysis when competitor checks are analyzed (i.e., you
-                             # don't have marker data or pedigree)
-G <- rbind(G,c(rep(0,nrow(G)),2))
-rownames(G)[nrow(G)] <- '0' ; colnames(G)[nrow(G)] <- '0'
+G <- readRDS('dat_seed_45.rds')$G_table7
 Ginv <- solve(G)
 
 # Loading needed packages
