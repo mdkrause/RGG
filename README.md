@@ -1,12 +1,13 @@
-# Models to estimate genetic gain of soybean seed yield from annual multi‑environment feld trials
+# Models to estimate genetic gain of soybean seed yield from annual multi‑environment field trials
 
 Krause, M.D., Piepho, HP., Dias, K.O.G. et al. Theor Appl Genet 136, 252 (2023). https://doi.org/10.1007/s00122-023-04470-3
 
 This repository contains the following files:
 
 1. dat_seed_45.rds: a list with four elements: MET, parents, G_table6 (G matrix for models in Table 6), and G_table7 (G matrix for models in Table 7). See details below.
-2. RGG_Table6.R: models presented in Table 6, except E9, and linearity metrics.
-3. RGG_Table7.R: models presented in Table 7.
+2. RGG_Table6.R: models in Table 6, except E9, and linearity metrics.
+3. RGG_Table6_E9.R: model E9 from Table 6.
+4. RGG_Table7.R: models in Table 7.
 
 The dat_seed_45.rds object contains the following datasets:
 
