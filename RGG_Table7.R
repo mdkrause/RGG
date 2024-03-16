@@ -22,19 +22,23 @@ E10 <- asreml(fixed = eBLUE ~ Y + mappingL,
              random = ~ P1 + and(P2) + cross + L + L:Y + 
                P1:L + P2:L + cross:L +
                P1:Y + P2:Y + cross:Y +
-               P1:L:Y + P2:L:Y,
+               P1:L:Y + P2:L:Y +
+               cross:L:Y,
              equate.levels=c('P1','P2'),
              residual=~idv(units),
              data = dat)
+E10 <- update.asreml(E10)
 
 E10G <- asreml(fixed = eBLUE ~ Y + mappingL, 
               random = ~ vm(P1, Ginv) + and(vm(P2, Ginv)) + cross + L + L:Y + 
                 P1:L + P2:L + cross:L +
                 P1:Y + P2:Y + cross:Y +
-                P1:L:Y + P2:L:Y,
+                P1:L:Y + P2:L:Y +
+                cross:L:Y,
               equate.levels=c('P1','P2'),
               residual=~idv(units),
               data = dat)
+E10G <- update.asreml(E10G)
 
 E11 <- asreml(fixed = eBLUE ~ Y + mappingL + P1 + and(P2) + cross,
               random = ~ L + L:Y +
@@ -126,6 +130,7 @@ E13_hat <- data.frame(G = first_test_P$G,
                                           gsub("P1_","",rownames(E13_hat)))]*2) %>% na.omit()
 
 first_test_P <- left_join(first_test_P, E10_hat, by = 'G')
+first_test_P <- left_join(first_test_P, E10G_hat, by = 'G')
 first_test_P <- left_join(first_test_P, E11_hat, by = 'G')
 first_test_P <- left_join(first_test_P, E13_hat, by = 'G')
 
@@ -133,40 +138,46 @@ first_test_P <- left_join(first_test_P, E13_hat, by = 'G')
 # Note the first few parents won't be present in MET due to the structure of the simulation
 trueGV <- dat%>%group_by(G)%>%
   filter(parent=='yes')%>%
-  summarise(sim_gv=mean(sim_gv))
+  summarise(trueMET=mean(sim_gv))
 first_test_P <- left_join(first_test_P, trueGV, by = 'G')
 
 ### Linear regressions 
 
-#### True trends
-modelMET <- lm(sim_gv~Y, first_test_P) # from MET, explained in "Bias and linearity".
-                                       # Given the models in Table 7 estimate RGG only with
-                                       # parents, the slopes from modelMET and modelP are 
-                                       # very similar, as expected. 
-                                       # The numerical differences between these slopes are due to
-                                       # the first few parents not being included in MET
+#### True trend
+modelMET <- lm(trueMET~Y, first_test_P) # from MET, explained in "Bias and linearity".
+                                        # Given the models in Table 7 estimate RGG only with
+                                        # parents, the slopes from modelMET and modelP are 
+                                        # very similar, as expected. 
+                                        # The numerical differences between these slopes are due to
+                                        # the first few parents not being included in MET
 modelP <- lm(sim_gv~year_crossing_nursery, parents) # from parents, true RGG. Equation 3
 
 ### Indirect measures
 
-tmp <- c('Y','E10','E11','E13')
+tmp <- c('Y','E10','E10G')
 dat_kappa <- first_test_P[,match(tmp,colnames(first_test_P))]
 dat_kappa <- dat_kappa%>%group_by(Y)%>%summarise(across(everything(),list(mean))) # Equation 5
 colnames(dat_kappa) <- gsub('_1','',colnames(dat_kappa))
 (res1 <- apply(dat_kappa, 
                2, function(x,Y=dat_kappa$Y) lm(cumsum(x)~Y)$coefficients[2])[-1])
 
+
+tmp <- c('G','E10','E10G','trueMET')
+
+(res2 <- apply(first_test_P[,-match(tmp,colnames(first_test_P))],
+               2, function(x,Y=first_test_P$Y) lm(x~Y)$coefficients[2])[-1])
+
 ## Direct measures of RGG
 
-res2 <- c(E12$coefficients$fixed['first_Y_trial:at(parent, yes)',1],
+res3 <- c(E12$coefficients$fixed['first_Y_trial:at(parent, yes)',1],
           coef(E14)$random['first_Y_trial:at(parent, yes)',1])
-names(res2) <- c('E12','E14')
+names(res3) <- c('E12','E14')
 
 ## Summarizing results 
 
-RGG <- data.frame(model = c(names(res1),names(res2),
+RGG <- data.frame(model = c(names(res1),names(res2),names(res3),
                             'trueMET','trueRGG'),
-                  RGG_hat = c(res1,res2,
+                  RGG_hat = c(res1,res2,res3,
                               modelMET$coefficients[2],
                               modelP$coefficients[2]))
 rownames(RGG) <- RGG$model
@@ -177,7 +188,7 @@ RGG <-
 RGG$bias <- ((RGG$RGG_hat-RGG['trueRGG',2])/RGG['trueRGG',2])*100 # in percentage
 RGG$expected_bias <- ((RGG$RGG_hat-RGG['trueMET',2])/RGG['trueMET',2])*100 # in percentage
 rownames(RGG) <- NULL
-RGG[,c(2:4)] <- round(RGG[,c(2:4)],4) ; RGG
+RGG[,c(2:4)] <- round(RGG[,c(2:4)],4) ; RGG # E13 did very well here
 ### Keep in mind that in stochastic simulations results are reported 
 ### as the average of all simulation runs. Here I am presenting only one rep.
 
