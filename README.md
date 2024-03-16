@@ -4,19 +4,18 @@ Krause, M.D., Piepho, HP., Dias, K.O.G. et al. Theor Appl Genet 136, 252 (2023).
 
 This repository contains the following files:
 
-1. dat.rds: a list with three elements: MET, parents, and G_matrix (see below).
-2. RGG_Table6.R: codes of the models presented in Table 6, except for Model E9. Codes for the linearity metrics were also made available.
+1. dat_seed_45.rds: a list with four elements: MET, parents, G_table6 (G matrix for models in Table 6), and G_table7 (G matrix for models in Table 7). See details below.
+2. RGG_Table6.R: models presented in Table 6, except E9, and linearity metrics.
+3. RGG_Table7.R: models presented in Table 7.
 
-Future updates of this repository will include the code for Model E9, models presented in Table 7, and the simulator.
-
-The data.rds object contains the following datasets:
+The dat_seed_45.rds object contains the following datasets:
 
 **MET:** simulated data from simulation model B2 (s = 45) <br />
 1. G            : genotypes <br />
 2. L            : locations <br />
 3. Y            : years (factor) <br />
 4. Y_num        : years (numeric) <br />
-5. trial        : trials (PYT and URT) <br />
+5. trial        : trials (BT3, PYT and URT) <br />
 6. mappingL     : covariate mapping ($z_{jk}$) <br />
 7. first_Y_trial: first year of trial ($r_i$) <br />
 8. parent       : binary variable stating if the $i^{th}$ genotype was used as a parent in crossing blocks <br />
@@ -34,5 +33,5 @@ The data.rds object contains the following datasets:
 3. year_crossing_nursery: calendar year
 4. sim_gv               : true simulated genetic value <br />
 
-**G_matrix:** additive genomic relationship matrix computed with rrBLUP::A.mat() from simulated SNP dosages
+**G_table6 and G_table7:** additive genomic relationship matrices computed with rrBLUP::A.mat() from simulated SNP dosages
 
