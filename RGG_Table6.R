@@ -1,11 +1,12 @@
-# MET data
-dat <- readRDS('./dat.rds')$MET
+ 	# MET data
+dat <- readRDS('dat_seed_45.rds')$MET|>subset(trial!='BT3')
 
 # crossing nursery
-parents <- readRDS('./dat.rds')$parents
+parents <- readRDS('dat_seed_45.rds')$parents
 
 # Additive relationship matrix computed with rrBLUP::A.mat()
-G <- readRDS('./dat.rds')$G_matrix 
+G <- readRDS('dat_seed_45.rds')$G_matrix 
+G <- G[unique(as.character(dat$G)),unique(as.character(dat$G))]
 Ginv <- solve(G)
 
 # Loading needed packages
@@ -15,6 +16,7 @@ asreml.options(maxit=60,pworkspace='2gb',workspace='1gb')
 library(funtimes)
 
 # Models presented in Table 6
+
 EB <- asreml(fixed = eBLUE ~ Y + mappingL, 
              random = ~ G + L + G:L + G:Y + L:Y + G:L:Y,
              family = asr_gaussian(dispersion = 1), 
@@ -224,6 +226,7 @@ colnames(dat_kappa) <- gsub('_1','',colnames(dat_kappa))
                2, function(x,Y=dat_kappa$Y) lm(cumsum(x)~Y)$coefficients[2])[-1])
 
 ## Direct measures of RGG
+
 res4 <- c(E2$coefficients$fixed['first_Y_trial:at(check, no)',1],
           E2V$coefficients$fixed['first_Y_trial:at(check, no)',1],
           coef(E3)$random['first_Y_trial:at(check, no)',1],
@@ -237,6 +240,7 @@ names(res4) <- c('E2','E2V','E3','E3V','E6','E6V','E8')
 Pheno <- lm(eBLUE ~ Y_num, dat) 
 
 ## Summarizing results 
+
 RGG <- data.frame(model = c(names(res1),names(res2),names(res3),names(res4),
                             'Pheno','trueMET','trueRGG'),
                   RGG_hat = c(res1,res2,res3,res4,
@@ -259,9 +263,11 @@ RGG <-
 
 RGG$bias <- ((RGG$RGG_hat-RGG['trueRGG',2])/RGG['trueRGG',2])*100 # in percentage
 RGG$expected_bias <- ((RGG$RGG_hat-RGG['trueMET',2])/RGG['trueMET',2])*100 # in percentage
-RGG[,c(2:4)] <- round(RGG[,c(2:4)],4)
-### Keep in mind that in stochastic simulations results are reported as the average of all simulation runs
-RGG
+rownames(RGG) <- NULL
+RGG[,c(2:4)] <- round(RGG[,c(2:4)],4) ; RGG
+### Keep in mind that in stochastic simulations results are reported as the average of 
+### all simulation runs. I am reporting only one rep here.
+
 
 # Linearity
 
