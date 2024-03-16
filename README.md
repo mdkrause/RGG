@@ -11,7 +11,7 @@ This repository contains the following files:
 
 The dat_seed_45.rds object contains the following datasets:
 
-**MET:** simulated data from simulation model B2 (s = 45) <br />
+**MET:** simulated data from simulation scenario/model B2 (s = 45) <br />
 1. G            : genotypes <br />
 2. L            : locations <br />
 3. Y            : years (factor) <br />
