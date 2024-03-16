@@ -5,8 +5,7 @@ dat <- readRDS('dat_seed_45.rds')$MET|>subset(trial!='BT3')
 parents <- readRDS('dat_seed_45.rds')$parents
 
 # Additive relationship matrix computed with rrBLUP::A.mat()
-G <- readRDS('dat_seed_45.rds')$G_matrix 
-G <- G[unique(as.character(dat$G)),unique(as.character(dat$G))]
+G <- readRDS('dat_seed_45.rds')$G_table6
 Ginv <- solve(G)
 
 # Loading needed packages
